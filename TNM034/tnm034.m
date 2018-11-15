@@ -8,11 +8,13 @@ function strout = tnm034(Im)
 % The string must follow the pre-defined format, explained below.
 %
 % Your program code…
+Im = im2double(Im);
+Im_Grey =rgb2gray(Im);
 
 %% Preprocess
 
 %Detect papper 
-Im = EdgeDetection(Im);
+%%Im = EdgeDetection(Im);
 
 %Reduce blur
 
@@ -28,16 +30,19 @@ Im = EdgeDetection(Im);
 
 
 %% Detect
-
-%Detect G-klak
-
-
-
-
+% Make the picture to Binary with all the text as white.
+threshhold = 0.9;
+BW = Im_Grey<threshhold;
 
 %Detect staff lines
+StaffLinesPos = FindStaffLines(BW);
+NrOfStaffLinesAreas = size(StaffLinesPos, 2)/5
 
 %Detect notes
+%NoteBW = RemoveVerticalLines(BW, 5);
+NoteBW = RemoveHorizontalLines(BW, 5);
+imshow(BW);
+
 
 %% Convert
 
@@ -45,8 +50,4 @@ Im = EdgeDetection(Im);
 
 
 strout = Im;
-
-
-
-imshow(Im);
 %%%%%%%%%%%%%%%%%%%%%%%%%%
