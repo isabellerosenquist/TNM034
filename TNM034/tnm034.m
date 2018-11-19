@@ -8,6 +8,7 @@ function strout = tnm034(Im)
 % The string must follow the pre-defined format, explained below.
 %
 % Your program code…
+NrOfStaffs =5;
 Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
 
@@ -36,12 +37,38 @@ BW = Im_Grey<threshhold;
 
 %Detect staff lines
 StaffLinesPos = FindStaffLines(BW);
-NrOfStaffLinesAreas = size(StaffLinesPos, 2)/5
+if(mod(size(StaffLinesPos, 2),5)~=0)
+    strout ='Wrong nr of staff lines';
+    return;
+end
+NrOfStaffLinesAreas = size(StaffLinesPos, 2)/NrOfStaffs;
+sum = 0;
+for i = 0:1:NrOfStaffLinesAreas-1
+    for j =1:1:NrOfStaffs-1
+        sum = sum + StaffLinesPos(1,i*NrOfStaffs+j+1) -StaffLinesPos(1,i*NrOfStaffs+j);      
+    end    
+end
+LengthBetweenStaff = round(sum/(NrOfStaffLinesAreas*(NrOfStaffs-1)))
+
+NoteHead = imread('Templetes/NoteHead.jpg');
+
+NoteHeadResize = imresize(NoteHead, [LengthBetweenStaff,LengthBetweenStaff]);
+imshow(NoteHeadResize)
+figure
+C = normxcorr2(NoteHead, Im);
+%C = C>0.9;
+imshow(C)
+
+
+
+
+
+
 
 %Detect notes
-%NoteBW = RemoveVerticalLines(BW, 5);
-NoteBW = RemoveHorizontalLines(BW, 5);
-imshow(BW);
+NoteBW = RemoveVerticalLines(BW, 4);
+NoteBW = RemoveHorizontalLines(NoteBW, 4);
+%imshow(NoteBW);
 
 
 %% Convert
