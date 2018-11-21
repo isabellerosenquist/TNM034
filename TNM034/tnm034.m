@@ -50,14 +50,15 @@ for i = 0:1:NrOfStaffLinesAreas-1
 end
 LengthBetweenStaff = round(sum/(NrOfStaffLinesAreas*(NrOfStaffs-1)))
 
-NoteHead = imread('Templetes/NoteHead.jpg');
 
-NoteHeadResize = imresize(NoteHead, [LengthBetweenStaff,LengthBetweenStaff]);
-imshow(NoteHeadResize)
-figure
-C = normxcorr2(NoteHead, Im);
+%NoteHead = imread('Templetes/NoteHead.jpg');
+
+%NoteHeadResize = imresize(NoteHead, [LengthBetweenStaff,LengthBetweenStaff]);
+%imshow(NoteHeadResize)
+%figure
+%C = normxcorr2(NoteHead, Im);
 %C = C>0.9;
-imshow(C)
+%imshow(C)
 
 
 
