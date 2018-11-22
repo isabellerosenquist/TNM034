@@ -8,7 +8,7 @@ function strout = tnm034(Im)
 % The string must follow the pre-defined format, explained below.
 %
 % Your program code…
-NrOfStaffs =5;
+
 Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
 
