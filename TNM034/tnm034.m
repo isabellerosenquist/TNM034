@@ -1,4 +1,3 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%
 function strout = tnm034(Im)
 %
 % Im: Input image of captured sheet music. Im should be in
@@ -78,4 +77,3 @@ NoteBW = RemoveHorizontalLines(NoteBW, 4);
 
 
 strout = Im;
-%%%%%%%%%%%%%%%%%%%%%%%%%%
