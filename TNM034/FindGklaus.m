@@ -10,6 +10,7 @@ function [Positions] = FindGklaus(BW)
     se = strel('disk',8);
     Gklaus = imopen(Gklaus,se);
     
+    imshow(Gklaus)
     % Label things 
     Labels = bwlabel(Gklaus);
     %find de center of the objects

@@ -1,6 +1,6 @@
 function [Position] = SortNoteHeads(NoteHeadsPos,GKlausPos, StaffLinesPos, Length)
     Min = min(min(StaffLinesPos));   
-    Top = Min-Length*5;
+    Top = Min-Length*4;
 
     %Get a vector from struct
     vect = cell2mat( struct2cell(GKlausPos(:,1)));
@@ -22,11 +22,17 @@ function [Position] = SortNoteHeads(NoteHeadsPos,GKlausPos, StaffLinesPos, Lengt
     %Make the vector to a matrix
     matXY = reshape (vect, [2,s/2])';
     
-    % Mask for notehead
+    % Mask for Distortion from Gklaus
     NoteHeadMask = matXY(:,1) > (AvarageGKlaus+10);
     
+    
+    %Make a mask 
+    mask = matXY(:,1)>Top;
     % Noteheads
     NoteHeads = (matXY.*NoteHeadMask);
+    
+   %%NoteHeads = NoteHeads.*mask;
+    
     Position = NoteHeads;
 end
 
