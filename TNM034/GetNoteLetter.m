@@ -42,31 +42,31 @@ for i = 1:1:size(matXY, 1)
                 NoteLetters(i) = "F2";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
             
             elseif j == 2 || j == 7 || j == 12 || j == 17 || j == 22 ||j == 27 || j == 32 || j == 37
                 NoteLetters(i) = "D2";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
             
             elseif j == 3 || j == 8 || j == 13 || j == 18 || j == 23 ||j == 28 || j == 33 || j == 38
                 NoteLetters(i) = "B1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
             
             elseif j == 4 || j == 9 || j == 14 || j == 19 || j == 24 ||j == 29 || j == 34 || j == 39
                 NoteLetters(i) = "G1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
             
             elseif j == 5 || j == 10 || j == 15 || j == 20 ||j == 25 || j == 30 || j == 35 || j == 40
                 NoteLetters(i) = "E1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("A    Mat " + (matXY(i, 2)) + " Stafflines " + StaffLinesPos(1, j) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
             
             end 
             
@@ -77,31 +77,31 @@ for i = 1:1:size(matXY, 1)
                 NoteLetters(i) = "E2";
                 NrOfNotesFound = NrOfNotesFound + 1;
 
-                disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
 
             elseif j == 2 || j == 7 || j == 12 || j == 17 || j == 22 ||j == 27 || j == 32 || j == 37
                 NoteLetters(i) = "C1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                 
-                disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
 
             elseif j == 3 || j == 8 || j == 13 || j == 18 || j == 23 ||j == 28 || j == 33 || j == 38
                 NoteLetters(i) = "A1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                                 
-                disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
 
             elseif j == 4 || j == 9 || j == 14 || j == 19 || j == 24 ||j == 29 || j == 34 || j == 39
                 NoteLetters(i) = "F1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                                 
-                disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
 
             elseif j == 5 || j == 10 || j == 15 || j == 20 ||j == 25 || j == 30 || j == 35 || j == 40
                 NoteLetters(i) = "D1";
                 NrOfNotesFound = NrOfNotesFound + 1;
                                 
-                disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
+                %disp("B    Mat " + (matXY(i, 2)) + " Stafflines " + (StaffLinesPos(1, j) + StaffDist/2) + " Skillnad " + (matXY(i, 2) - StaffLinesPos(1, j))  + " Not " + NoteLetters(i) + " i " + i + " j " +j );
 
             end 
         end

@@ -1,6 +1,5 @@
 function [PixelCoord] = FindStaffLines(BW, percent)
-    %Set a threshold value for our stafflines
-    %percent = 0.7;
+
     %Sum all horizontal pixels
     Pixelsum = sum(BW');
     [r, c] = size(BW);

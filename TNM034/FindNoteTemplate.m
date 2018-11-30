@@ -55,6 +55,7 @@ L = bwlabel(Corr);
 %Get the center point of each object
 positions = regionprops(L, 'centroid');
 
+%Image of the correlation
 imshow(Corr)
 
 end
