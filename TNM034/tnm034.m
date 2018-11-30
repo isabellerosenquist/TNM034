@@ -12,7 +12,10 @@ Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
 
 %% Preprocess
-
+%Make a Binary image
+% Make the picture to Binary with all the text as white.
+level = graythresh(Im_Grey);
+BW = Im_Grey<level;
 %Detect papper 
 %%Im = EdgeDetection(Im);
 
@@ -30,44 +33,34 @@ Im_Grey =rgb2gray(Im);
 
 
 %% Detect
-% Make the picture to Binary with all the text as white.
-threshhold = 0.9;
-BW = Im_Grey<threshhold;
+
+%Rotate the picture depending on the angle from hough transform
+RotateBW = BW;
+
+
 
 %Detect staff lines
-StaffLinesPos = FindStaffLines(BW);
-if(mod(size(StaffLinesPos, 2),5)~=0)
+Staff = FindStaffLines(RotateBW);
+Length = LenghtBetweenStaffLines(Staff); 
+if(mod(size(Staff, 2),5)~=0)
     strout ='Wrong nr of staff lines';
     return;
 end
-NrOfStaffLinesAreas = size(StaffLinesPos, 2)/NrOfStaffs;
-sum = 0;
-for i = 0:1:NrOfStaffLinesAreas-1
-    for j =1:1:NrOfStaffs-1
-        sum = sum + StaffLinesPos(1,i*NrOfStaffs+j+1) -StaffLinesPos(1,i*NrOfStaffs+j);      
-    end    
-end
-LengthBetweenStaff = round(sum/(NrOfStaffLinesAreas*(NrOfStaffs-1)))
-
-
-%NoteHead = imread('Templetes/NoteHead.jpg');
-
-%NoteHeadResize = imresize(NoteHead, [LengthBetweenStaff,LengthBetweenStaff]);
-%imshow(NoteHeadResize)
-%figure
-%C = normxcorr2(NoteHead, Im);
-%C = C>0.9;
-%imshow(C)
 
 
 
+%Divide the picture into staffareas
+StaffAreas = DividedIntoStaffAreas(BW,Staff, Length);
 
+%  for i = 1:1:size(Staff,2)/5
+%        figure
+%        imshow(StaffAreas(:,:,i));      
+%  end
 
 
 
 %Detect notes
-NoteBW = RemoveVerticalLines(BW, 4);
-NoteBW = RemoveHorizontalLines(NoteBW, 4);
+
 %imshow(NoteBW);
 
 
