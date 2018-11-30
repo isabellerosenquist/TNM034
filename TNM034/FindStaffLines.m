@@ -1,10 +1,11 @@
-function [PixelCoord] = FindStaffLines(BW)
+function [PixelCoord] = FindStaffLines(BW, percent)
     %Set a threshold value for our stafflines
-    percent = 0.7;
+    %percent = 0.7;
     %Sum all horizontal pixels
     Pixelsum = sum(BW');
     [r, c] = size(BW);
-    %plot(1:1:r, Pixelsum)
+%     plot(1:1:r, Pixelsum)
+%     figure
     
     maxValue = max(Pixelsum);
     count = 1;   
