@@ -1,16 +1,10 @@
-function [PixelCoord] = FindStaffLines(BW)
-    
-    %Set a threshold value for our stafflines
-    percent = 0.7;
-    
-    %Remove vertical lines
-   % BW = RemoveVerticalLines(BW,2);
+function [PixelCoord] = FindStaffLines(BW, percent)
 
-    %imshow(BW);
     %Sum all horizontal pixels
     Pixelsum = sum(BW');
     [r, c] = size(BW);
-    %plot(1:1:r, Pixelsum)
+%     plot(1:1:r, Pixelsum)
+%     figure
     
     maxValue = max(Pixelsum);
     count = 1;   
@@ -21,7 +15,7 @@ function [PixelCoord] = FindStaffLines(BW)
     for i =1:1:cp
         %IF the peaks value is in a close proximinity add it to our return
         %variable
-        if(pks(1,i) >maxValue/2)
+        if(pks(1,i) >maxValue*percent)
             PixelCoord(1,count)= locs(1, i);
             count = count +1;            
         end  

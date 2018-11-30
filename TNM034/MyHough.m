@@ -1,18 +1,20 @@
-function [H,peaks,lines] = MyHough(BW)
+function [BWrot] = MyHough(BW)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
 %Hough transformation
-[H, theta, rho] = hough(BW)
+[H, theta, rho] = hough(BW);
 
-imshow(H,[],'XData',theta,'YData',rho,'InitialMagnification','fit');
-xlabel('\theta'), ylabel('\rho');
-axis on, axis normal, hold on;
+% figure
+% imshow(H,[],'XData',theta,'YData',rho,'InitialMagnification','fit');
+% xlabel('\theta'), ylabel('\rho');
+% axis on, axis normal, hold on;
 
 %Find peaks
 
-numpeaks = 5;
-peaks = houghpeaks(H,numpeaks)
+numpeaks = 1;
+peaks = houghpeaks(H,numpeaks);
+ 
 % figure
 % imshow(H,[],'XData',theta,'YData',rho,'InitialMagnification','fit');
 % xlabel('\theta'), ylabel('\rho');
@@ -21,7 +23,20 @@ peaks = houghpeaks(H,numpeaks)
 
 
 %Find lines
-lines = houghlines(BW,theta,rho,peaks)
+lines = houghlines(BW,theta,rho,peaks);
+
+figure 
+imshow(BW);
+
+hold on
+for k = 1:numel(lines)
+    x1 = lines(k).point1(1);
+    y1 = lines(k).point1(2);
+    x2 = lines(k).point2(1);
+    y2 = lines(k).point2(2);
+    plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
+end
+hold off
 
 % max_len = 0;
 % for k = 1:length(lines)
@@ -42,6 +57,49 @@ lines = houghlines(BW,theta,rho,peaks)
 % end
 % 
 % plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','cyan');
+
+diff_ang = zeros(1,numel(lines));
+
+
+for i = 1:numel(lines)
+    ang = lines(i).theta;
+    if ang < 0 
+        myTheta = ang+90;
+        sign = -1;
+    else 
+        myTheta = 90-ang;
+        sign = 1;
+    end
+    diff_ang(i) = myTheta;
+end
+
+
+%positiv - clockwise
+%negativ - counter clockwise
+%BWrot = imrotate(BW, -ang, 'bicubic');
+
+
+if range(diff_ang) == 0
+    if myTheta == 0
+        BWrot = BW;
+    else
+        if sign == -1
+        BWrot = imrotate(BW,myTheta, 'bicubic');
+        else
+            BWrot = imrotate(BW,-myTheta, 'bicubic');
+        end
+    end
+else
+    disp('Angle not the same');
+end
+
+
+figure
+% subplot(1,2,1);
+% imshow(BW);
+% subplot(1,2,2);
+imshow(BWrot);
+%title('Rotationangle: '+ ang);
 
 
 end

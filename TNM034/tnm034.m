@@ -10,7 +10,12 @@ function strout = tnm034(Im)
 
 Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
+positions = FindNoteTemplate(Im_Grey);
 
+
+NoteLetters = GetNoteLetter(Im_Grey, positions);
+disp("Notes: ");
+disp(NoteLetters(:, 1)'); %disp(NoteLetters(:, :)) för att visa alla i matrisen
 %% Preprocess
 %Make a Binary image
 % Make the picture to Binary with all the text as white.
@@ -40,13 +45,12 @@ RotateBW = BW;
 
 
 %Detect staff lines
-Staff = FindStaffLines(RotateBW);
+Staff = FindStaffLines(RotateBW, 0.6);
 Length = LenghtBetweenStaffLines(Staff); 
 if(mod(size(Staff, 2),5)~=0)
     strout ='Wrong nr of staff lines';
     return;
 end
-
 
 
 %Divide the picture into staffareas
@@ -56,13 +60,6 @@ StaffAreas = DividedIntoStaffAreas(BW,Staff, Length);
 %        figure
 %        imshow(StaffAreas(:,:,i));      
 %  end
-
-
-
-%Detect notes
-
-%imshow(NoteBW);
-
 
 %% Convert
 
