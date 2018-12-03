@@ -80,6 +80,8 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
            case 20
               chr(1,i)  = 'G1';
        end
-   end     
+   end   
+   
+   Position = chr;
 end
 

@@ -3,7 +3,7 @@ function [BWrot] = MyHough(BW, Image)
 %   Detailed explanation goes here
 
 %Hough transformation
-[H, theta, rho] = hough(BW);
+[H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',-90:0.1:89);
 
 % figure
 % imshow(H,[],'XData',theta,'YData',rho,'InitialMagnification','fit');
@@ -25,18 +25,19 @@ peaks = houghpeaks(H,numpeaks);
 %Find lines
 lines = houghlines(BW,theta,rho,peaks);
 
-figure 
-%imshow(BW);
+% figure 
+% imshow(BW);
+% 
+% hold on
+% for k = 1:numel(lines)
+%     x1 = lines(k).point1(1);
+%     y1 = lines(k).point1(2);
+%     x2 = lines(k).point2(1);
+%     y2 = lines(k).point2(2);
+%     plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
+% end
 
-hold on
-for k = 1:numel(lines)
-    x1 = lines(k).point1(1);
-    y1 = lines(k).point1(2);
-    x2 = lines(k).point2(1);
-    y2 = lines(k).point2(2);
-    plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
-end
-hold off
+%hold off
 
 % max_len = 0;
 % for k = 1:length(lines)
@@ -78,7 +79,7 @@ end
 %negativ - counter clockwise
 %BWrot = imrotate(BW, -ang, 'bicubic');
 
-
+BWrot = Image;
 if range(diff_ang) == 0
     if myTheta == 0
         %BWrot = BW;
@@ -97,11 +98,11 @@ else
 end
 
 
-figure
+%figure
 % subplot(1,2,1);
 % imshow(BW);
 % subplot(1,2,2);
-imshow(BWrot);
+%imshow(BWrot);
 %title('Rotationangle: '+ ang);
 
 
