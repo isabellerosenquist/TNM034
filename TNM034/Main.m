@@ -3,7 +3,7 @@ clc
 clear
 
 % read image and make to a binary picture
-Image = imread('Images_Training/im6s.jpg');
+Image = imread('Images_Training/im1s.jpg');
 Im = im2double(Image);
 Im_grey =rgb2gray(Im);
 % imshow(Im_grey);
@@ -13,6 +13,8 @@ BW = Im_grey<threshhold;
 
 %Find staff lines and get top position where we stop take into account the
 %things over
+BW = MyHough(BW, Im_grey);
+BW = BW<threshhold;
 Staff = FindStaffLines(BW, 0.6);
 Length = LenghtBetweenStaffLines(Staff); 
 Top = min(min(Staff))-Length*4;

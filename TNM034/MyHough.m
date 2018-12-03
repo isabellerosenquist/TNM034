@@ -1,4 +1,4 @@
-function [BWrot] = MyHough(BW)
+function [BWrot] = MyHough(BW, Image)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -26,7 +26,7 @@ peaks = houghpeaks(H,numpeaks);
 lines = houghlines(BW,theta,rho,peaks);
 
 figure 
-imshow(BW);
+%imshow(BW);
 
 hold on
 for k = 1:numel(lines)
@@ -81,12 +81,15 @@ end
 
 if range(diff_ang) == 0
     if myTheta == 0
-        BWrot = BW;
+        %BWrot = BW;
+        BWrot = Image;
     else
         if sign == -1
-        BWrot = imrotate(BW,myTheta, 'bicubic');
+        %BWrot = imrotate(BW,myTheta, 'bicubic');
+        BWrot = imrotate(Image,myTheta, 'bicubic');
         else
-            BWrot = imrotate(BW,-myTheta, 'bicubic');
+            %BWrot = imrotate(BW,-myTheta, 'bicubic');
+            BWrot = imrotate(Image,-myTheta, 'bicubic');
         end
     end
 else
