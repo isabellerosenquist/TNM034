@@ -3,16 +3,27 @@ function [Positions] = FindNoteHeads(BW, Gklaus)
     BW(:,1:Limit) =0; 
     %Remove horizontal and vertical lines
     NoLineBW = RemoveHorizontalLines(BW, 4);
-    %imshow(NoLineBW);
+    imshow(NoLineBW);
     NoLineBW = RemoveVerticalLines(NoLineBW, 4);
-    %imshow(NoLineBW);
+    imshow(NoLineBW);
     
     %Remove smal objects
-    se = strel('disk',4);
+    se = strel('rectangle',[2 20]);
    
-    Noteheads = imopen(NoLineBW,se);
+    Lines = imopen(NoLineBW,se);
+    Lines = ~Lines;
     
-    %imshow(Noteheads);
+    
+    
+    NoBeam = NoLineBW.*Lines;
+    
+    imshow(NoBeam);
+    se = strel('sphere',4);
+ 
+    
+    Noteheads = imopen(NoBeam,se);
+    
+    imshow(Noteheads);
     Labels = bwlabel(Noteheads);
     imshow(Labels);
     Stats = regionprops(Labels, 'Centroid');

@@ -3,7 +3,7 @@ function [BWrot] = MyHough(BW, Image)
 %   Detailed explanation goes here
 
 %Hough transformation
-[H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',-90:0.1:89);
+[H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',-90:0.1:89.9);
 
 % figure
 % imshow(H,[],'XData',theta,'YData',rho,'InitialMagnification','fit');
