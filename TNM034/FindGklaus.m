@@ -3,15 +3,17 @@ function [Position] = FindGklaus(BW)
     % remove stafflines and other things
     NoLineBW = RemoveHorizontalLines(BW, 4);
     NoLineBW = RemoveVerticalLines(NoLineBW, 4);
-    
+
     %Make a structural disk to close objects
-    se = strel('disk',9);
+    se = strel('disk',8);
     Gklaus = imclose(NoLineBW,se);
-
+    
+    %imshow(Gklaus);
     % Make structural disk to open objects
-    se = strel('disk',9);
-    Gklaus = imopen(Gklaus,se);
-
+    %se = strel('disk',);
+    %Gklaus = imerode(Gklaus,se);
+    
+    %imshow(Gklaus);
     % Label things 
     Labels = bwlabel(Gklaus);
     
@@ -22,7 +24,7 @@ function [Position] = FindGklaus(BW)
     matXY = StructToMat(Stats);
     
     
-    imshow(Labels);
+    %imshow(Labels);
     
     
     Position = matXY(1,:);
