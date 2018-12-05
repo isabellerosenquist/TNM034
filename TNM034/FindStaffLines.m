@@ -3,7 +3,7 @@ function [PixelCoord] = FindStaffLines(BW, percent)
     %Sum all horizontal pixels
     Pixelsum = sum(BW');
     [r, c] = size(BW);
-     plot(1:1:r, Pixelsum)
+    % plot(1:1:r, Pixelsum)
 %     figure
     
     maxValue = max(Pixelsum);

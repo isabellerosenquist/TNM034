@@ -81,7 +81,7 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
               chr(1,i)  = 'G1';
        end
    end   
-   
+   chr(1,size(chr,2)) = '/n';
    Position = chr;
 end
 
