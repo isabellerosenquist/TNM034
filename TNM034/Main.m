@@ -15,30 +15,29 @@ BW = Im_grey<threshhold;
 %Find staff lines and get top position where we stop take into account the
 %things over
 BW = MyHough(BW, BW);
-%BW = imcrop(BW,[20 20 size(BW,1)-200 size(BW,2)-100]);
-%BW = BW<threshhold;
+
 imshow(BW)
 Staff = FindStaffLines(BW, 0.4);
-Length = LenghtBetweenStaffLines(Staff); 
+[Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff); 
 Top = min(min(Staff))-Length*4;
 
 
 % Staff areas
 SizeOfStaffArea = [120, 1000];
-StaffAreas = DividedIntoStaffAreas(BW,Staff, Length);
-NumberOfStaffAreas =size(Staff,2)/5;
-StaffAreasResized = imresize(StaffAreas, 10/Length);
+StaffAreas = DividedIntoStaffAreas(BW, Staff, Length, NumberOfStaffAreas);
 
-%  for i = 1:1:NumberOfStaffAreas
-%        figure
-%        imshow(StaffAreas(:,:,i));      
-%  end
- 
+str = imread('Templetes/im6s.jpg');
+str = imresize(str, [7,7]);
+str = im2double(str);
+str =rgb2gray(str);
+threshhold = graythresh(str);
+str = str<threshhold;
+
   for i = 1:1:NumberOfStaffAreas
-      Staff = FindStaffLines(StaffAreasResized(:,:,i),0.6);
+      Staff = FindStaffLines(StaffAreas(:,:,i),0.6);
       Length = LenghtBetweenStaffLines(Staff);
-      GKlaus = FindGklaus(StaffAreasResized(:,:,i));
-      NoteHeads = FindNoteHeads(StaffAreasResized(:,:,i), GKlaus);   
+      GKlaus = FindGklaus(StaffAreas(:,:,i));
+      NoteHeads = FindNoteHeads(StaffAreas(:,:,i), GKlaus, str);   
       String = SortNoteHeads(NoteHeads, Staff, Length);
       disp(join(String));
  end

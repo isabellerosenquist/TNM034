@@ -1,71 +1,39 @@
-function [Positions] = FindNoteHeads(BW, Gklaus)
-    Image = imread('Templetes/im6s.jpg');
-    Image = imresize(Image, [7,7]);
-    Im = im2double(Image);
-    Im_grey =rgb2gray(Im);
-    threshhold = graythresh(Im_grey);
-    note = Im_grey<threshhold;
-    
+function [Positions] = FindNoteHeads(BW, Gklaus, str)
+    %This function find the positions of the note heads.
 
-
-
-
-
-
+    %Removes everyting to the left of the Gklaus and 20 pixels to the
+    %right.
     Limit = round(Gklaus(1,1)+20);
     BW(:,1:Limit) =0; 
-    %Remove horizontal and vertical lines
-    NoLineBW = RemoveHorizontalLines(BW, 4);
-    imshow(NoLineBW);
-    NoLineBW = RemoveVerticalLines(NoLineBW, 6);
-    imshow(NoLineBW);
+    NoteHeads = BW;
     
+    %Remove horizontal and vertical lines
+    NoteHeads = RemoveHorizontalLines(NoteHeads, 4);
+    NoteHeads = RemoveVerticalLines(NoteHeads, 6);
 
     %remove horizontal object
     se = strel('rectangle',[2 15]);
-    Lines = imopen(NoLineBW,se);
-    Lines = ~Lines;
-    NoBeam = NoLineBW.*Lines;
+    Lines = imopen(NoteHeads,se);
+    NoteHeads = NoteHeads.*(~Lines);
     
-     %remove horizontal object
+    %remove Vertical object
     se = strel('rectangle',[15 2]);
-    Lines = imopen(NoBeam,se);
-    Lines = ~Lines;
-    NoBeam = NoBeam.*Lines;
+    Lines = imopen(NoteHeads,se);
+    NoteHeads = NoteHeads.*(~Lines);
     
-   
+    % Removes objects that doesn't fits into our note structural object    
+    se = strel('arbitrary',str);
+    NoteHeads = imopen(NoteHeads,se);
     
-    
-    imshow(NoBeam);
-    
-        
-    se = strel('arbitrary',note);
-    Noteheads = imopen(NoBeam,se);
-    imshow(Noteheads);
-    
-
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    %Remove som small noise that is left
     se = strel('sphere',3);
-    Noteheads = imopen(Noteheads,se);
-%     
-%     imshow(Noteheads);
-    Labels = bwlabel(Noteheads);
-    imshow(Labels);
+    NoteHeads = imopen(NoteHeads,se);
+
+    %Label and run regionprops on the image
+    Labels = bwlabel(NoteHeads);
     Stats = regionprops(Labels, 'Centroid');
+    
+    %Make the struct into a matrix
     Mat = StructToMat(Stats);
     Positions = Mat;
 end

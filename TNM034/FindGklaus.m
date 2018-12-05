@@ -1,4 +1,9 @@
 function [Position] = FindGklaus(BW)
+    %Find the approximate GKlaus position. It removes as much of the noise
+    %it can and the just return the first object from the left. In the most
+    %cases it return the Gklaus but in som cases it returns something else
+    %but it always lies in the approximate position of the gklaus.
+
 
     % remove stafflines and other things
     NoLineBW = RemoveHorizontalLines(BW, 4);
@@ -8,25 +13,16 @@ function [Position] = FindGklaus(BW)
     se = strel('disk',8);
     Gklaus = imclose(NoLineBW,se);
     
-    %imshow(Gklaus);
-    % Make structural disk to open objects
-    %se = strel('disk',);
-    %Gklaus = imerode(Gklaus,se);
-    
-    %imshow(Gklaus);
-    % Label things 
+    %Put a label on things
     Labels = bwlabel(Gklaus);
     
     %find de center of the objects
     Stats = regionprops(Labels, 'Centroid');
    
-    % 
+    % Make the struct to a matrix
     matXY = StructToMat(Stats);
     
-    
-    %imshow(Labels);
-    
-    
+    %Return the first position because the Gklaus i almost always first
     Position = matXY(1,:);
 end
 
