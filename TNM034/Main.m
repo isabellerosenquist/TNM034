@@ -36,7 +36,7 @@ StaffAreasResized = imresize(StaffAreas, 10/Length);
 %       Staff = FindStaffLines(StaffAreasResized(:,:,i),0.6);
 %       Length = LenghtBetweenStaffLines(Staff);
 %       GKlaus = FindGklaus(StaffAreasResized(:,:,i));
-%       NoteHeads = FindNoteHeads(StaffAreasResized(:,:,i), GKlaus);   
+%       NoteHeads = FindNoteHeads(StaffAreasResized(:,:,i), GKlaus);  
 %       String = SortNoteHeads(NoteHeads, Staff, Length);
 %  end
 
