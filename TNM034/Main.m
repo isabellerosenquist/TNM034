@@ -14,17 +14,17 @@ BW = Im_grey<threshhold;
 
 %Find staff lines and get top position where we stop take into account the
 %things over
-BW = MyHough(BW, BW);
-
+%BW = OldHough(BW, BW);
+BW = MyHough(BW);
 Staff = FindStaffLines(BW, 0.4);
 [Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff); 
-Top = min(min(Staff))-Length*4;
 
 
 % Staff areas
-SizeOfStaffArea = [120, 1000];
 StaffAreas = DividedIntoStaffAreas(BW, Staff, Length, NumberOfStaffAreas);
+ResizedStaffAreas = imresize(StaffAreas,10/Length);
 
+%Get the own made structural element
 str = imread('Templetes/im6s.jpg');
 str = imresize(str, [7,7]);
 str = im2double(str);
@@ -32,19 +32,19 @@ str =rgb2gray(str);
 threshhold = graythresh(str);
 str = str<threshhold;
 
-  for i = 1:1:NumberOfStaffAreas
-      Staff = FindStaffLines(StaffAreas(:,:,i),0.6);
-      Length = LenghtBetweenStaffLines(Staff);
-      GKlaus = FindGklaus(StaffAreas(:,:,i));
-      NoteHeads = FindNoteHeads(StaffAreas(:,:,i), GKlaus, str);   
-      String = SortNoteHeads(NoteHeads, Staff, Length);
-      disp(join(String));
+for i = 1:1:NumberOfStaffAreas
+     figure
+     imshow(ResizedStaffAreas(:,:,i));
  end
 
 
-
- 
- 
-%imshow(Image);
-
+%   for i = 1:1:NumberOfStaffAreas
+%       Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.6);
+%       Length = LenghtBetweenStaffLines(Staff);
+%       GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
+%       NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);   
+%       String = SortNoteHeads(NoteHeads, Staff, Length);
+%       disp((String));
+%  end
+% 
 %ans = tnm034(Im);

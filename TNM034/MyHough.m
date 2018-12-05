@@ -3,7 +3,8 @@ function [BWrot] = MyHough(BW)
 %   Detailed explanation goes here
 
 %Hough transformation
-[H, theta, rho] = hough(BW);
+step1 = 0.1;
+[H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',-90:step1:90-step1);
 
 %Find peaks
 numpeaks = 1;
@@ -30,14 +31,14 @@ minmax = zeros(1,2);
 %set theta-diff
 if thetaRange == 0
     if(theta == -90)
-        minmax(1,1) = theta(1)+1;
+        minmax(1,1) = theta(1)+step1;
         minmax(1,2) = theta(1);
     elseif(theta == 90)
-        minmax(1,1) = theta(1)-1;
+        minmax(1,1) = theta(1)-step1;
         minmax(1,2) = theta(1);
     else
-        minmax(1,1) = theta(1)-1;
-        minmax(1,2) = theta(1)+1;
+        minmax(1,1) = theta(1)-step1;
+        minmax(1,2) = theta(1)+step1;
     end
 % else
 %     minTheta = theta(1)- thetaRange-1;
@@ -48,7 +49,7 @@ minTheta = min(minmax);
 maxTheta = max(minmax);
 
 %Calculate hough again in a smaller range
-step = 0.1;
+step = 0.01;
 [H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',minTheta:step:(maxTheta-step));
 
 %find peaks
@@ -98,10 +99,10 @@ end
 
 
 %show BW and rotated image
-figure
-imshow(BW);
-figure
-imshow(BWrot);
+%figure
+%imshow(BW);
+%figure
+%imshow(BWrot);
 
 
 end

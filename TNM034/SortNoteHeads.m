@@ -84,7 +84,7 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
        end
    end
    %Set a break line at the end
-   chr(1,size(chr,2)) = '/n';
+   chr(1,size(chr,2)) = 'n';
    Position = chr;
 end
 
