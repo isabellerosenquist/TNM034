@@ -16,7 +16,6 @@ BW = Im_grey<threshhold;
 %things over
 BW = MyHough(BW, BW);
 
-imshow(BW)
 Staff = FindStaffLines(BW, 0.4);
 [Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff); 
 Top = min(min(Staff))-Length*4;
