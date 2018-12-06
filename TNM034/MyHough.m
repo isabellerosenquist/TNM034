@@ -59,19 +59,19 @@ peaks = houghpeaks(H,numpeaks);
 %find lines
 lines = houghlines(BW,theta,rho,peaks);
 
-figure 
-imshow(BW);
+% figure 
+% imshow(BW);
 
-hold on
-for k = 1:numel(lines)
-    x1 = lines(k).point1(1);
-    y1 = lines(k).point1(2);
-    x2 = lines(k).point2(1);
-    y2 = lines(k).point2(2);
-    plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
-end
-
-hold off
+% hold on
+% for k = 1:numel(lines)
+%     x1 = lines(k).point1(1);
+%     y1 = lines(k).point1(2);
+%     x2 = lines(k).point2(1);
+%     y2 = lines(k).point2(2);
+%     plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
+% end
+% 
+% hold off
 %get rotation angle and determine rotation way
 diff_ang = zeros(1,numel(lines));
 
