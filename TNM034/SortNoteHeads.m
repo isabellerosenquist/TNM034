@@ -1,4 +1,4 @@
-function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
+function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length, BW)
    
     %Set the positions of the different notes
     NotePositions = zeros(1,20);
@@ -40,6 +40,7 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
    %Depending on the number i the previous find min function we give
    %translate the position into a note
    for i = 1:1:size(NoteHeadsPos,1)
+       flag = Flags(NoteHeadsPos(i,:),best(i,1) ,BW);
        switch best(i,1)
            case 1
               chr(1,i)  = 'E4';           
@@ -82,6 +83,11 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length)
            case 20
               chr(1,i)  = 'G1';
        end
+       if(flag ==1)
+           chr(1,i) = lower(chr(1,i));
+       end
+           
+    
    end
    %Set a break line at the end
    chr(1,size(chr,2)) = 'n';
