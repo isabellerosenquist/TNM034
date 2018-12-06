@@ -3,7 +3,7 @@ clc
 clear
 
 % read image and make to a binary picture
-Image = imread('Images_Training/im13s.jpg');
+Image = imread('Images_Training/im5s.jpg');
 Im = im2double(Image);
 Im_grey =rgb2gray(Im);
 % imshow(Im_grey);
@@ -32,19 +32,20 @@ str =rgb2gray(str);
 threshhold = graythresh(str);
 str = str<threshhold;
 
-for i = 1:1:NumberOfStaffAreas
-     figure
-     imshow(ResizedStaffAreas(:,:,i));
- end
-
-
-%   for i = 1:1:NumberOfStaffAreas
-%       Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.6);
-%       Length = LenghtBetweenStaffLines(Staff);
-%       GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
-%       NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);   
-%       String = SortNoteHeads(NoteHeads, Staff, Length);
-%       disp((String));
+% for i = 1:1:NumberOfStaffAreas
+%      figure
+%      imshow(ResizedStaffAreas(:,:,i));
 %  end
+
+
+for i = 1:1:NumberOfStaffAreas
+  Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.6);
+  Length = LenghtBetweenStaffLines(Staff);
+  GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
+  NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str); 
+  FindEighthNotes(ResizedStaffAreas(:,:,i), NoteHeads(i, :), NoteHeads(i+1, :), GKlaus);
+  String = SortNoteHeads(NoteHeads, Staff, Length);
+  disp((String));
+end
 % 
 %ans = tnm034(Im);
