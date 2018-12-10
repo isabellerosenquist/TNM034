@@ -39,9 +39,41 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length, BW)
    chr = strings(1,size(NoteHeadsPos,1)+1);
    %Depending on the number i the previous find min function we give
    %translate the position into a note
+   NextFlag = 0;
    for i = 1:1:size(NoteHeadsPos,1)
-       flag = Flags(NoteHeadsPos(i,:),best(i,1) ,BW);
-       eighthnote = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
+       Flag = 0;
+       %Don't ask what it does but it maybe works
+       if(NextFlag == 2)
+           Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
+           if(Flag ==0)
+               Flag = 2
+               NextFlag = 0;
+           elseif(Flag ==1)
+               Flag = 2;
+               NextFlag = 1;
+           else
+               NextFlag = 2;
+           end          
+       elseif(NextFlag ==1)
+           Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
+           if(Flag ==0)
+               Flag = 1
+               NextFlag = 0;
+           elseif(Flag ==1)
+               Flag = 1;
+               NextFlag = 1;
+           else
+               Flag = 2;
+               NextFlag = 2;
+           end  
+       elseif(NextFlag ==0)
+         Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);  
+         NextFlag = Flag;
+       end
+       
+       if(Flag==0)
+            Flag = Flags(NoteHeadsPos(i,:),best(i,1) ,BW); 
+       end
        switch best(i,1)
            case 1
               chr(1,i)  = 'E4';           
@@ -84,8 +116,10 @@ function [Position] = SortNoteHeads(NoteHeadsPos,StaffLinesPos, Length, BW)
            case 20
               chr(1,i)  = 'G1';
        end
-       if(flag ==1)
+       if(Flag ==1)
            chr(1,i) = lower(chr(1,i));
+       elseif(Flag == 2)
+           chr(1,i) = '';
        end
            
     

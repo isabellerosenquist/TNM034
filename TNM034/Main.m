@@ -3,7 +3,7 @@ clc
 clear
 
 % read image and make to a binary picture
-Image = imread('Images_Training/im13s.jpg');
+Image = imread('Images_Training/im1s.jpg');
 
 Im = im2double(Image);
 Im_grey =rgb2gray(Im);
