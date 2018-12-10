@@ -1,6 +1,6 @@
 function [Positions] = FindNoteHeads(BW, Gklaus, str)
     %This function find the positions of the note heads.
-    %imshow(BW);
+    imshow(BW);
     %Removes everyting to the left of the Gklaus and 20 pixels to the
     %right.
     Limit = round(Gklaus(1,1)+20);
@@ -31,6 +31,7 @@ function [Positions] = FindNoteHeads(BW, Gklaus, str)
 
     %Label and run regionprops on the image
     Labels = bwlabel(NoteHeads);
+    imshow(Labels);
     Stats = regionprops(Labels, 'Centroid');
     %Make the struct into a matrix
     Mat = StructToMat(Stats);

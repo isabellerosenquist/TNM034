@@ -9,7 +9,7 @@ function [Ans] = EighthNote(NotePos, Staffline, BW)
         imshow(SmallBW);
             
     else
-        SmallBW = ImageBW(0:Ypos-10, Xpos+10:Xpos+15);
+        SmallBW = ImageBW(1:Ypos-10, Xpos+10:Xpos+15);
         imshow(SmallBW);    
     end
     

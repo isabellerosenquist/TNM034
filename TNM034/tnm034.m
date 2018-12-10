@@ -40,7 +40,7 @@ BW = Im_Grey<level;
 %% Detect
 
 %Rotate the picture depending on the angle from hough transform
-RotateBW = OldHough(BW,BW);
+RotateBW = MyHough(BW);
 
 
 
@@ -51,7 +51,7 @@ Staff = FindStaffLines(RotateBW, 0.4);
 
 
 %Divide the picture into staffareas
-StaffAreas = DividedIntoStaffAreas(BW, Staff, Length, NumberOfStaffAreas);
+StaffAreas = DividedIntoStaffAreas(RotateBW, Staff, Length, NumberOfStaffAreas);
 ResizedStaffAreas = imresize(StaffAreas,10/Length);
 
 %Get the own made structural element
@@ -61,14 +61,18 @@ str = im2double(str);
 str =rgb2gray(str);
 threshhold = graythresh(str);
 str = str<threshhold;
-
+ for i = 1:1:NumberOfStaffAreas
+     figure;
+     imshow(ResizedStaffAreas(:,:,i));
+     
+ end
 out = '';
  for i = 1:1:NumberOfStaffAreas
       Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.6);
       Length = LenghtBetweenStaffLines(Staff);
       GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
       NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);   
-      String = SortNoteHeads(NoteHeads, Staff, Length);
+      String = SortNoteHeads(NoteHeads, Staff, Length, ResizedStaffAreas(:,:,i));
       out = strcat(out, join(String));
  end
 

@@ -49,7 +49,7 @@ minTheta = min(minmax);
 maxTheta = max(minmax);
 
 %Calculate hough again in a smaller range
-step = 0.01;
+step = 0.001;
 [H, theta, rho] = hough(BW,'RhoResolution',1.0,'Theta',minTheta:step:(maxTheta-step));
 
 %find peaks

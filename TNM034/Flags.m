@@ -5,11 +5,11 @@ function [Ans] = Flags(NotePos, Staffline, BW)
     Ypos = round(NotePos(1,2));
     if(Staffline <=12)      
         SmallBW = ImageBW(Ypos+10:Ypos+20, Xpos-10:Xpos+15);
-        imshow(SmallBW);
+        %imshow(SmallBW);
             
     else
         SmallBW = ImageBW(Ypos-20:Ypos-10, Xpos-10:Xpos+15);
-        imshow(SmallBW);    
+        %imshow(SmallBW);    
     end
     
     Pixelsum = sum(SmallBW);
