@@ -1,7 +1,6 @@
 function [StaffAreas] = DividedIntoStaffAreas(BW, StaffLines, Length, NumberOfStaffsAreas)
     % Takes in the whole image and divide it into smaller images with just
     % one staffarea in each.
-
     %Loop through all staff areas
     for i = 0:1:NumberOfStaffsAreas-1
         % Get the lowest pixel that the note won't be on
