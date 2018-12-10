@@ -36,16 +36,18 @@ for i = 1:1:size(NoteHeadsPos,1)
     end
 end
 %Preallocate a string array for each note
-chr = strings(1,size(NoteHeadsPos,1)+1);
+%chr = strings(1,size(NoteHeadsPos,1)+1);
+chr = '';
 %Depending on the number i the previous find min function we give
 %translate the position into a note
 NextFlag = 0;
 for i = 1:1:size(NoteHeadsPos,1)
     Flag = 0;
+    tempChar = '';
     %Don't ask what it does but it maybe works
-    if(i == size(NoteHeadsPos,1))
+    if(i ~= size(NoteHeadsPos,1))
         if(NextFlag == 2)
-            Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
+            Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
             if(Flag ==0)
                 Flag = 2;
                 NextFlag = 0;
@@ -56,7 +58,7 @@ for i = 1:1:size(NoteHeadsPos,1)
                 NextFlag = 2;
             end
         elseif(NextFlag ==1)
-            Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
+            Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
             if(Flag ==0)
                 Flag = 1;
                 NextFlag = 0;
@@ -68,8 +70,11 @@ for i = 1:1:size(NoteHeadsPos,1)
                 NextFlag = 2;
             end
         elseif(NextFlag ==0)
-            Flag = EighthNote(NoteHeadsPos(i, :), best(i, 1), BW);
-            NextFlag = Flag;
+            Flag = Flags(NoteHeadsPos(i,:),best(i,1) ,BW);
+            if(Flag == 0)
+                Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
+                NextFlag = Flag;
+            end
         end
         
         if(Flag==0)
@@ -84,58 +89,60 @@ for i = 1:1:size(NoteHeadsPos,1)
         end
         
     end
+    
     switch best(i,1)
         case 1
-            chr(1,i)  = 'E4';
+            tempChar  = 'E4';
         case 2
-            chr(1,i)  = 'D4';
+            tempChar = 'D4';
         case 3
-            chr(1,i)  = 'C4';
+            tempChar  = 'C4';
         case 4
-            chr(1,i)  = 'B3';
+            tempChar  = 'B3';
         case 5
-            chr(1,i)  = 'A3';
+            tempChar  = 'A3';
         case 6
-            chr(1,i)  = 'G3';
+           tempChar  = 'G3';
         case 7
-            chr(1,i)  = 'F3';
+            tempChar  = 'F3';
         case 8
-            chr(1,i)  = 'E3';
+            tempChar  = 'E3';
         case 9
-            chr(1,i)  = 'D3';
+            tempChar  = 'D3';
         case 10
-            chr(1,i)  = 'C3';
+            tempChar  = 'C3';
         case 11
-            chr(1,i)  = 'B2';
+            tempChar  = 'B2';
         case 12
-            chr(1,i)  = 'A2';
+            tempChar  = 'A2';
         case 13
-            chr(1,i)  = 'G2';
+            tempChar  = 'G2';
         case 14
-            chr(1,i)  = 'F2';
+            tempChar  = 'F2';
         case 15
-            chr(1,i)  = 'E2';
+            tempChar  = 'E2';
         case 16
-            chr(1,i)  = 'D2';
+            tempChar  = 'D2';
         case 17
-            chr(1,i)  = 'C2';
+            tempChar  = 'C2';
         case 18
-            chr(1,i)  = 'B1';
+            tempChar  = 'B1';
         case 19
-            chr(1,i)  = 'A1';
+            tempChar  = 'A1';
         case 20
-            chr(1,i)  = 'G1';
+            tempChar  = 'G1';
     end
     if(Flag ==1)
-        chr(1,i) = lower(chr(1,i));
+        tempChar = lower(tempChar);
     elseif(Flag == 2)
-        chr(1,i) = '';
+        tempChar = '';
     end
+    chr = strcat(chr,tempChar);
     
     
 end
 %Set a break line at the end
-chr(1,size(chr,2)) = 'n';
+chr = strcat(chr,'n');
 Position = chr;
 end
 

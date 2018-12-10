@@ -1,20 +1,20 @@
 function [Ans] = Flags(NotePos, Staffline, BW)
     ImageBW = RemoveHorizontalLines(BW,4);
-    %imshow(ImageBW)
+    imshow(ImageBW)
     Xpos = round(NotePos(1,1));
     Ypos = round(NotePos(1,2));
     if(Staffline <=12)      
-        SmallBW = ImageBW(Ypos+10:Ypos+20, Xpos-10:Xpos+15);
-        %imshow(SmallBW);
+        SmallBW = ImageBW(Ypos+10:Ypos+20, Xpos-5:Xpos+25);
+        imshow(SmallBW);
             
     else
-        SmallBW = ImageBW(Ypos-20:Ypos-10, Xpos-10:Xpos+15);
-        %imshow(SmallBW);    
+        SmallBW = ImageBW(Ypos-20:Ypos-10, Xpos-5:Xpos+25);
+        imshow(SmallBW);    
     end
     
     Pixelsum = sum(SmallBW);
-    %[r, c] = size(SmallBW');
-    %plot(1:1:r, Pixelsum)
+    [r, c] = size(SmallBW');
+    plot(1:1:r, Pixelsum)
     [pks, locs] = findpeaks(Pixelsum);
 
     if(size(locs,2)==2)

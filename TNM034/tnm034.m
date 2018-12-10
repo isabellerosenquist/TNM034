@@ -10,19 +10,14 @@ function strout = tnm034(Im)
 
 Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
-%positions = FindNoteTemplate(Im_Grey);
 
-
-%NoteLetters = GetNoteLetter(Im_Grey, positions);
-%disp("Notes: ");
-%disp(NoteLetters(:, 1)'); %disp(NoteLetters(:, :)) för att visa alla i matrisen
 %% Preprocess
 %Make a Binary image
 % Make the picture to Binary with all the text as white.
 level = graythresh(Im_Grey);
 BW = Im_Grey<level;
 %Detect papper 
-%%Im = EdgeDetection(Im);
+
 
 %Reduce blur
 
@@ -42,13 +37,9 @@ BW = Im_Grey<level;
 %Rotate the picture depending on the angle from hough transform
 RotateBW = MyHough(BW);
 
-
-
 %Detect staff lines
 Staff = FindStaffLines(RotateBW, 0.4);
 [Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff); 
-
-
 
 %Divide the picture into staffareas
 StaffAreas = DividedIntoStaffAreas(RotateBW, Staff, Length, NumberOfStaffAreas);
@@ -61,14 +52,14 @@ str = im2double(str);
 str =rgb2gray(str);
 threshhold = graythresh(str);
 str = str<threshhold;
- for i = 1:1:NumberOfStaffAreas
-     figure;
-     imshow(ResizedStaffAreas(:,:,i));
-     
- end
+% 
+%  for i = 1:1:NumberOfStaffAreas
+%      figure;
+%      imshow(ResizedStaffAreas(:,:,i));
+%  end
 out = '';
  for i = 1:1:NumberOfStaffAreas
-      Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.6);
+      Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.4);
       Length = LenghtBetweenStaffLines(Staff);
       GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
       NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);   

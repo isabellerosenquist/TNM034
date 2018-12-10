@@ -31,7 +31,7 @@ function [Positions] = FindNoteHeads(BW, Gklaus, str)
 
     %Label and run regionprops on the image
     Labels = bwlabel(NoteHeads);
-    imshow(Labels);
+    %imshow(Labels);
     Stats = regionprops(Labels, 'Centroid');
     %Make the struct into a matrix
     Mat = StructToMat(Stats);
