@@ -40,9 +40,6 @@ if thetaRange == 0
         minmax(1,1) = theta(1)-step1;
         minmax(1,2) = theta(1)+step1;
     end
-% else
-%     minTheta = theta(1)- thetaRange-1;
-%     maxTheta = theta(1)+ thetaRange+1;
 end
 
 minTheta = min(minmax);
@@ -59,19 +56,6 @@ peaks = houghpeaks(H,numpeaks);
 %find lines
 lines = houghlines(BW,theta,rho,peaks);
 
-% figure 
-% imshow(BW);
-
-% hold on
-% for k = 1:numel(lines)
-%     x1 = lines(k).point1(1);
-%     y1 = lines(k).point1(2);
-%     x2 = lines(k).point2(1);
-%     y2 = lines(k).point2(2);
-%     plot([x1 x2],[y1 y2],'Color','g','LineWidth', 2)
-% end
-% 
-% hold off
 %get rotation angle and determine rotation way
 diff_ang = zeros(1,numel(lines));
 
@@ -90,8 +74,6 @@ end
 
 %positiv - clockwise
 %negativ - counter clockwise
-%BWrot = imrotate(BW, -ang, 'bicubic');
-
 
 %Rotate image
 BWrot = BW;
@@ -110,12 +92,6 @@ else
     disp('Angle not the same');
 end
 
-
-%show BW and rotated image
-%figure
-%imshow(BW);
-%figure
-%imshow(BWrot);
 
 
 end
