@@ -52,11 +52,11 @@ str = im2double(str);
 str =rgb2gray(str);
 threshhold = graythresh(str);
 str = str<threshhold;
-% 
-%  for i = 1:1:NumberOfStaffAreas
-%      figure;
-%      imshow(ResizedStaffAreas(:,:,i));
-%  end
+
+ for i = 1:1:NumberOfStaffAreas
+     figure;
+     imshow(ResizedStaffAreas(:,:,i));
+ end
 out = '';
  for i = 1:1:NumberOfStaffAreas
       Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.4);

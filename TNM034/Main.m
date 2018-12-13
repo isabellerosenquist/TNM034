@@ -3,7 +3,7 @@ clc
 clear
 
 % read image and make to a binary picture
-Image = imread('Images_Training/im9s.jpg');
+Image = imread('Images_Training/im6s.jpg');
 ans = tnm034(Image);
 disp(ans);
 % Im = im2double(Image);
