@@ -47,7 +47,7 @@ imshow(NoteImage);
 NoteImage = MyHough(NoteImage);
 
 %Horizontal projection
-Pixelsum = sum(NoteImage');
+Pixelsum = sum(NoteImage,2);
 [r, c] = size(NoteImage);
     plot(1:1:r, Pixelsum)
     figure
@@ -56,7 +56,7 @@ maxValue = max(Pixelsum);
 NumberOfLines = 0;   
 
 %Find all peaks and their location
-[pks, locs] = findpeaks(Pixelsum);
+[pks, ~] = findpeaks(Pixelsum);
 
 [~, cp] = size(pks);
 

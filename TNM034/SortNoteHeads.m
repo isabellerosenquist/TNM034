@@ -47,7 +47,7 @@ for i = 1:1:size(NoteHeadsPos,1)
     %Don't ask what it does but it maybe works
     if(i ~= size(NoteHeadsPos,1))
         if(NextFlag == 2)
-            Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
+            Flag = EighthNote(NoteHeadsPos(i:i+1, :), BW);
             if(Flag ==0)
                 Flag = 2;
                 NextFlag = 0;
@@ -58,7 +58,7 @@ for i = 1:1:size(NoteHeadsPos,1)
                 NextFlag = 2;
             end
         elseif(NextFlag ==1)
-            Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
+            Flag = EighthNote(NoteHeadsPos(i:i+1, :), BW);
             if(Flag ==0)
                 Flag = 1;
                 NextFlag = 0;
@@ -72,7 +72,7 @@ for i = 1:1:size(NoteHeadsPos,1)
         elseif(NextFlag ==0)
             Flag = Flags(NoteHeadsPos(i,:),best(i,1) ,BW);
             if(Flag == 0)
-                Flag = EighthNote(NoteHeadsPos(i:i+1, :), best(i, 1), BW);
+                Flag = EighthNote(NoteHeadsPos(i:i+1, :), BW);
                 NextFlag = Flag;
             end
         end

@@ -8,63 +8,63 @@ function strout = tnm034(Im)
 %
 % Your program code…
 
+%% Make image into binary
+
+%Make sure that the image is in greyscale and in double precision values
 Im = im2double(Im);
 Im_Grey =rgb2gray(Im);
 
-%% Preprocess
-%Make a Binary image
 % Make the picture to Binary with all the text as white.
 level = graythresh(Im_Grey);
 BW = Im_Grey<level;
-%Detect papper 
 
-
-%Reduce blur
-
-
-%Reduce rotation
-
-
-%Reduce perspective
-
-
-%Reduce noise
+%% Preprocess
 
 
 
-%% Detect
+%% Detect Notes
 
 %Rotate the picture depending on the angle from hough transform
 RotateBW = MyHough(BW);
 
-%Detect staff lines
+%Detect staff lines and get length between staffs and the number of staff
+%areas
 Staff = FindStaffLines(RotateBW, 0.4);
-[Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff); 
+[Length,NumberOfStaffAreas]  = LenghtBetweenStaffLines(Staff);
 
-%Divide the picture into staffareas
+%Divide the picture so each image contains one staff area. Then resize the
+%image so it is always 10 pixels between staff lines
 StaffAreas = DividedIntoStaffAreas(RotateBW, Staff, Length, NumberOfStaffAreas);
 ResizedStaffAreas = imresize(StaffAreas,10/Length);
 
 %Get the own made structural element
 str = imread('Templetes/im6s.jpg');
 str = imresize(str, [7,7]);
-str = im2double(str);
-str =rgb2gray(str);
+str = rgb2gray(im2double(str));
 threshhold = graythresh(str);
 str = str<threshhold;
 
- for i = 1:1:NumberOfStaffAreas
-     figure;
-     imshow(ResizedStaffAreas(:,:,i));
- end
+
+%  for i = 1:1:NumberOfStaffAreas
+%      figure;
+%      imshow(ResizedStaffAreas(:,:,i));
+%  end
+
+%Inital character array
 out = '';
- for i = 1:1:NumberOfStaffAreas
-      Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.4);
-      Length = LenghtBetweenStaffLines(Staff);
-      GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
-      NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);   
-      String = SortNoteHeads(NoteHeads, Staff, Length, ResizedStaffAreas(:,:,i));
-      out = strcat(out, join(String));
- end
+
+%Loop through all staffa areas
+for i = 1:1:NumberOfStaffAreas
+    %Get the positions of the new stafflines and the length
+    Staff = FindStaffLines(ResizedStaffAreas(:,:,i),0.4);
+    Length = LenghtBetweenStaffLines(Staff);
+    %The approximate position of the Gklaus
+    GKlaus = FindGklaus(ResizedStaffAreas(:,:,i));
+    %Get all the note positions
+    NoteHeads = FindNoteHeads(ResizedStaffAreas(:,:,i), GKlaus, str);
+    %Classification
+    String = SortNoteHeads(NoteHeads, Staff, Length, ResizedStaffAreas(:,:,i));
+    out = strcat(out, join(String));
+end
 
 strout = out;
